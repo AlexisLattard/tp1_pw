@@ -4,11 +4,18 @@
       Ionic Blank
     </ion-title>
   </ion-navbar>
+  <ion-searchbar (ionInput)="getLength($event)"></ion-searchbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <ion-item>Aucun résultat</ion-item>
+  <ion-list >
+    <button ion-item *ngFor="let item of results">
+      <ion-thumbnail item-start>
+        <img src={{item.image}} alt="affiche">
+      </ion-thumbnail>
+      <h2>{{item.title}}</h2>
+      <h3>{{item.author}}</h3>
+    </button>
+  </ion-list>
 </ion-content>

@@ -1,21 +1,17 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { DetailsPage } from '../details/details';
+import { Observable } from "rxjs/Observable";
+import { HttpClient } from "@angular/common/http";
+import { api_key } from "../../app/tmdb";
 
 export interface Result {
   title: string;
-  author: string;
-  date: string;
-  image: string;
+  overview: string;
+  poster_path: string;
+  release_date: string;
+  vote_average: number;
 }
-
-const fakeResult: Result[] = [
-  { title: 'Michel', author: 'Notre ami Michel !', date: '14/02/1953', image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Michel_Cremades.jpg/220px-Michel_Cremades.jpg"},
-  { title: 'RRRRRRRRRRRr', author: 'Alain Chabat', date: '15/12/1984', image: 'https://media.senscritique.com/media/000004673929/1200/RRRrrrr.jpg'},
-  { title: 'Michel', author: 'Notre ami Michel !', date: '14/02/1953', image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Michel_Cremades.jpg/220px-Michel_Cremades.jpg" },
-  { title: 'RRRRRRRRRRRr', author: 'Alain Chabat', date: '15/12/1984', image: 'https://media.senscritique.com/media/000004673929/1200/RRRrrrr.jpg' },
-  { title: 'Michel', author: 'Notre ami Michel !', date: '14/02/1953', image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Michel_Cremades.jpg/220px-Michel_Cremades.jpg" },
-  { title: 'RRRRRRRRRRRr', author: 'Alain Chabat', date: '15/12/1984', image: 'https://media.senscritique.com/media/000004673929/1200/RRRrrrr.jpg' }
-]
 
 
 @Component({
@@ -23,15 +19,35 @@ const fakeResult: Result[] = [
   templateUrl: 'home.html'
 })
 export class HomePage {
-  results: Result[];
+  results: Observable<Result[]>;
 
-  constructor(public navCtrl: NavController) {
-    this.results = fakeResult;
+
+  constructor(public navCtrl: NavController,public http: HttpClient) {
+    this.results = Observable.of([]);
   }
 
-  getLength(event: any){
-    return event.length;
-
-
+  getItems(event: any) : void{
+    let val = event.target.value;
+    if (val.length == 0) {
+      this.results = Observable.of([]);
+    }
+    else {
+      this.results = this.fetchResults(val);
+    }
   }
+
+  showDetails(item: Result) : void{
+    this.navCtrl.push(DetailsPage,item);
+  }
+
+  fetchResults(query: string) : Observable<Result[]>{
+
+    return this.http.get<Result[]>("https://api.themoviedb.org/3/search/movie",{
+      params:{
+        "api_key": api_key,
+        "query": query
+      }
+    }).pluck("results");
+  }
+
 }

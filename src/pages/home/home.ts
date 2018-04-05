@@ -27,11 +27,56 @@ export class HomePage {
 
   constructor(public navCtrl: NavController) {
     this.results = fakeResult;
+<<<<<<< HEAD
   }
 
   getLength(event: any){
     return event.length;
 
 
+=======
+>>>>>>> Corentin
   }
 }
+<<<<<<< Updated upstream
+=======
+
+<<<<<<< HEAD
+@Component({
+  templateUrl: 'search/template.html',
+})
+class SearchPage {
+
+  searchQuery: string = '';
+  items: string[];
+
+  constructor() {
+    this.initializeItems();
+  }
+
+  initializeItems() {
+    this.items = fakeResult;
+  }
+
+  getItems(ev: any) {
+    // Reset items back to all of the items
+    this.initializeItems();
+
+    // set val to the value of the searchbar
+    let val = ev.target.value;
+
+    // if the value is an empty string don't filter the items
+    if (val && val.trim() != '') {
+      this.items = this.items.filter((item) => {
+        return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      })
+    }
+=======
+  getLength(event: any){
+    return event.length;
+
+
+>>>>>>> Corentin
+  }
+}
+>>>>>>> Stashed changes

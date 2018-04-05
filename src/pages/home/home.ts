@@ -24,38 +24,16 @@ const fakeResult: Result[] = [
 })
 export class HomePage {
   results: Result[];
-
-  constructor(public navCtrl: NavController) {
-    this.results = fakeResult;
-<<<<<<< HEAD
-  }
-
-  getLength(event: any){
-    return event.length;
-
-
-=======
->>>>>>> Corentin
-  }
-}
-<<<<<<< Updated upstream
-=======
-
-<<<<<<< HEAD
-@Component({
-  templateUrl: 'search/template.html',
-})
-class SearchPage {
-
   searchQuery: string = '';
   items: string[];
 
-  constructor() {
+  constructor(public navCtrl: NavController) {
+    this.results = fakeResult;
     this.initializeItems();
   }
 
   initializeItems() {
-    this.items = fakeResult;
+    this.items = ['Test1', 'Test2'];
   }
 
   getItems(ev: any) {
@@ -71,12 +49,5 @@ class SearchPage {
         return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
     }
-=======
-  getLength(event: any){
-    return event.length;
-
-
->>>>>>> Corentin
   }
 }
->>>>>>> Stashed changes

@@ -4,7 +4,12 @@
       Ionic Blank
     </ion-title>
   </ion-navbar>
-  <ion-searchbar (ionInput)="getLength($event)"></ion-searchbar>
+  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-list>
+    <ion-item *ngFor="let item of items">
+      {{ item }}
+    </ion-item>
+  </ion-list>
 </ion-header>
 
 <ion-content padding>
